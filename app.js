@@ -4,15 +4,17 @@ const morgan = require('morgan');
 const path = require('path');
 
 const app = express();
-const PORT = process.env.PORT;
+const PORT = process.env.PORT || 3306;
 
-app.use(morgan('combined'));
 app.use(express.static(__dirname + '/public'));
 
+app.set("views","./src/views");
+app.set("view engine", "ejs");
+
 app.get('/', (req, res) => {
-    res.send('Welcome');
+    res.render('index',{username: 'admin'});
 })
 
-app.listen(port,()=> {
-    debug("listening on port" + (port));
+app.listen(PORT,()=> {
+    debug("listening on port" + (PORT));
 });
